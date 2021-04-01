@@ -1,0 +1,23 @@
+{{> photosPartial}}
+
+<div class="adminVips">
+  <fieldset>
+       <legend><strong>Ajout d'une photo</strong></legend>
+       <form action="/Photos/Ajouter" method="post">
+             Séléctionnez un vip : <select name="vip">
+                 <option value="0">Vips</option>
+                 {{#each vips}}
+                    <option value="{{this.VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}</option>
+                 {{/each}}
+             </select>
+             </br> </br>
+             Sélectionner l'image : <input type="file"  name="photo">
+             </br> </br>
+             Titre : <input type="text" name="photo_sujet">
+             </br> </br>
+             Un petit commentaire ? <textarea name="photo_commentaire" rows="8" cols="80"></textarea>
+             </br> </br>
+             <button type="submit" name="valider">Valider</button>
+         </form>
+  </fieldset>
+</div>

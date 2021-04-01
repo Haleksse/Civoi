@@ -1,0 +1,94 @@
+{{> vipsPartial}}
+
+<div class="adminVips">
+  <fieldset>
+    {{#if modif}}
+      <legend><strong>Modifier VIPs</strong></legend>
+    {{else}}
+      <legend><strong>Ajout VIPs</strong></legend>
+    {{/if}}
+    
+    {{#if modif}}
+      <form action="/Vips/Modifier" method="post">
+    {{else}}
+      <form action="/Vips/Ajouter" method="post">
+    {{/if}}
+        <table>
+          {{#if modif}}
+            <tr>
+              <th>Séléctionnez un vip : </th>
+              <td>
+                <select name="vip">
+                  <option value="0">Vips</option>
+                  {{#each vips}}
+                    <option value="{{this.VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}</option>
+                  {{/each}}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>Nom :</th>
+              <td><input type="text" name="nom"></td>
+            </tr>
+            <tr>
+              <th>Prénom : </th>
+              <td><input type="text" name="prenom"></td>
+            </tr>
+          {{else}}
+            <tr>
+              <th>Nom* :</th>
+              <td><input required type="text" name="nom"></td>
+            </tr>
+            <tr>
+              <th>Prénom* : </th>
+              <td><input required type="text" name="prenom"></td>
+            </tr>
+          {{/if}}
+          <tr>
+            <th>Sexe : </th>
+            <td>
+              <select name="sexe">
+                <option value="M">Masculin</option>
+                <option value="F">Feminin</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>Date de naissance : </th>
+            <td><input type="date" name="datenaissance"></td>
+          </tr>
+          <tr>
+            <th>Nationalité : </th>
+            <td>
+              <select name="nationalite">
+                {{#each nationalites}}
+                  <option value="{{this.NATIONALITE_NUMERO}}">{{this.NATIONALITE_NOM}}</option>
+                {{/each}}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>Commentaire : </th>
+            <td><textarea name="commentaire" rows="8" cols="80"></textarea></td>
+          </tr>
+          <tr>
+            <th>Sélectionner l'image : </th>
+            <td><input type="file"  name="photo"></td>
+          </tr>
+          <tr>
+            <th>Sujet de la photo : </th>
+            <td><input type="text" name="photo_sujet"></td>
+          </tr>
+          <tr>
+            <th>Commentaire de la photo : </th>
+            <td><textarea name="photo_commentaire" rows="8" cols="80"></textarea></td>
+          </tr>
+        </table>
+
+        </br> </br>
+
+        <button type="submit" name="valider">Valider</button>
+      
+    </form>
+  </fieldset>
+</div>

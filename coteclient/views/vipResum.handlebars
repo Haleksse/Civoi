@@ -1,0 +1,160 @@
+{{>repertoireLettre}}
+
+{{#each starResum}}
+{{!-- {{details generaux}} --}}
+<div>
+	<img src="/images/vip/{{this.PHOTO_ADRESSE}}"> <br>
+	<label>Nom : {{this.VIP_PRENOM}} {{this.VIP_NOM}}</label> <br>
+	<label>Nationalité : {{this.NATIONALITE_NOM}}</label> <br>
+	<label>Date de naissance : {{formatDate this.VIP_NAISSANCE 'dddd D MMMM YYYY'}}</label> <br><br>
+
+{{!-- {{Professions}} --}}
+{{#if ../estActeur }}
+             <b>Profession : </b>
+             {{#if ../estHomme}}
+                 acteur
+             {{else}}
+                 actrice
+             {{/if}}
+             {{#if ../estRealisateur}}
+                 (en plus de ses propres films)
+             {{/if}}
+             <br>
+             <b>Principal(aux) film(s) : </b>
+             {{#each ../estActeur}}
+                 {{this.FILM_TITRE}} ({{formatDate this.FILM_DATEREALISATION 'MMMM YYYY' }}) de
+                 <a class="tooltip" href="/vip/{{this.VIP_NUMERO}}">
+                     {{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                 </a>
+                 ({{this.ROLE_NOM}})
+                 <br>
+             {{/each}}
+         {{/if}}
+
+
+	{{#if ../estMannequin}}
+		<label>Profession : manequin</label> <br>
+		<label>Principal(aux) défilé(s) : <label>
+			{{#each ../estMannequin}}
+				<label> {{this.DEFILE_NOM}} {{formatDate this.DEFILE_DATE 'MMMM YYYY'}} de <a class="tooltip" href="/vip/{{this.VIP_NUMERO}}">
+            {{this.VIP_PRENOM}} {{this.VIP_NOM}}
+        </a> </label> <br>
+			{{/each}}
+			<br>
+	{{/if}}
+
+  {{#if ../estRealisateur }}
+                <label>Profession : </label>
+                {{#if ../estHomme}}
+                    réalisateur
+                {{else}}
+                    réalisatrice
+                {{/if}}
+                <br>
+                <label>Principal(aux) film(s) : </label>
+                {{#each ../estRealisateur}}
+                    {{this.FILM_TITRE}} ({{formatDate this.FILM_DATEREALISATION 'MMMM YYYY' }})
+                    {{#if this.ROLE_NOM}}
+                        joue égament dedans ({{this.ROLE_NOM}})
+                    {{else}}
+                        ne joue pas dedans
+                    {{/if}}
+                    <br>
+                {{/each}}
+                <br>
+            {{/if}}
+
+            {{#if ../estCouturier }}
+                <b>Profession : </b>
+                {{#if ../estHomme}}
+                    couturier
+                {{else}}
+                    couturière
+                {{/if}}
+                <br>
+                <b>Principal(aux) défilé(s) : </b>
+                {{#each ../estCouturier}}
+                    {{this.DEFILE_LIEU}} ({{formatDate this.DEFILE_DATE 'MMMM YYYY' }})
+                    <br>
+                {{/each}}
+                <br>
+            {{/if}}
+
+            {{#if ../estMannequin }}
+                <label>Profession : </label>mannequin
+                <br>
+                <label>Principal(aux) défilé(s) : </label>
+                {{#each ../estMannequin}}
+                    {{this.DEFILE_LIEU}} ({{formatDate this.DEFILE_DATE 'MMMM YYYY' }}) de
+                    <a class="tooltip" href="/vip/{{this.VIP_NUMERO}}">
+                        {{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    </a>
+                    <br>
+                {{/each}}
+                <br>
+            {{/if}}
+
+            {{#if ../estChanteur }}
+               <label>Profession : </label>
+               {{#if ../estHomme}}
+                   chanteur ({{chanteur.0.CHANTEUR_SPECIALITE}})
+               {{else}}
+                   chanteuse ({{chanteur.0.CHANTEUR_SPECIALITE}})
+               {{/if}}
+               <br>
+               <label>Principal(aux) album(s) : </label>
+               {{#each ../estChanteur}}
+                   {{this.ALBUM_TITRE}} ({{formatDate this.ALBUM_DATE 'MMMM YYYY' }})
+                   {{this.MAISONDISQUE_NOM}}
+                   <br>
+               {{/each}}
+               <br>
+           {{/if}}
+
+{{!-- {{Relations}} --}}
+{{#if ../mariagesVip}}
+          <p><b>Mariage(s) : </b>
+              {{#each ../mariagesVip}}
+                  <a class="tooltip" href="/vip/{{this.VIP_NUMERO}}">
+                      {{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                  </a>
+                  {{#if this.MARIAGE_FIN}}
+                      ({{formatDate this.DATE_EVENEMENT 'MMMM YYYY' }} --> {{formatDate this.MARIAGE_FIN 'MMMM YYYY' }})
+                  {{else}}
+                      (depuis {{formatDate this.DATE_EVENEMENT 'MMMM YYYY' }})
+                  {{/if}}
+                  <b>lieu : </b> {{this.MARIAGE_LIEU}}
+                  <br>
+              {{/each}}
+              <br>
+          </p>
+      {{/if}}
+
+      {{#if ../estLier}}
+            <p><b>liaison(s) : </b>
+                {{#each ../estLier}}
+                    <a class="tooltip" href="/vip/{{this.VIP_NUMERO}}">
+                        {{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    </a>
+                    ({{formatDate this.DATE_EVENEMENT 'MMMM YYYY' }})
+                    {{#if this.LIAISON_MOTIFFIN}}
+                        <b>raison fin liaison : </b> {{this.LIAISON_MOTIFFIN}}
+                    {{/if}}
+                    <br>
+                {{/each}}
+                <br>
+            </p>
+        {{/if}}
+
+	<label>Qui suis-je? : {{this.VIP_TEXTE}}</label> <br>
+
+  {{#each ../photosVip}}
+                  <a href="/images/vip/{{this.PHOTO_ADRESSE}}" data-lightbox="roadtrip"
+                  data-title="{{this.PHOTO_SUJET}} - {{this.PHOTO_COMMENTAIRE}}">
+                      <img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="oups" height="150">
+                  </a>
+          {{/each}}
+
+</div>
+
+{{/each}}

@@ -1,0 +1,34 @@
+{{> photosPartial}}
+
+<div class="adminVips">
+  <fieldset>
+       <legend><strong>Suppression photos d'un VIP</strong></legend>
+       <form action="/Photos/Selectionner" method="post" id="myForm">
+             Séléctionnez un vip :
+              <select id="mySelect" name="vip" onchange="submit()">
+                 <option value="0">Vips</option>
+                 {{#each vips}}
+                    {{#ifCond vipNum '==' this.VIP_NUMERO}}
+                        <option value="{{this.VIP_NUMERO}}" selected>{{this.VIP_PRENOM}} {{this.VIP_NOM}}</option>
+                    {{else}}
+                        <option value="{{this.VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}</option>
+                    {{/ifCond}}
+                 {{/each}}
+             </select>
+        </form>
+        <form action="/Photos/Supprimer/{{vipNum}}" method="post" id="myForm">
+             {{#if photos}}
+                 <hr>
+                 </br></br>
+                 {{#each photos}}
+                    <input class="checkbox" type="checkbox" name="photoVip" value="{{this.PHOTO_NUMERO}}">
+                    <img class="imageACocher" src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="{{this.PHOTO_ADRESSE}}" height="150px;">
+                    </br> </br>
+                 {{/each}}
+                 </br></br>
+                 <button type="submit" name="valider">Valider</button>
+             {{/if}}
+         </form>
+         </br></br>
+  </fieldset>
+</div>
